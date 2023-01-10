@@ -1,4 +1,5 @@
 .idea
 __pycache__
 .DS_store
-models
+models/resnet101.pth
+models/resnet101_scripted.pt
