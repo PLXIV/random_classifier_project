@@ -1,0 +1,49 @@
+services:
+  app:
+    hostname: "MyClassifier"
+    build:
+      context: .
+    ports:
+      - "${PORT}:${PORT}"
+    restart: unless-stopped
+    profiles:
+      - deploy
+    env_file:
+      - common.env
+    command: ["uvicorn", "app_classifier.main:app", "--host", "${HOST}"]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:${PORT}/"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  unit-test:
+    hostname: "UnitTestMyClassifier"
+    build:
+      context: .
+    ports:
+      - "${PORT}:${PORT}"
+    profiles:
+      - unit-test
+    env_file:
+      - common.env
+    command: ["pytest", "test/unit/", "-v", "-n", "3", "--maxfail=15"]
+
+  end-test:
+    hostname: "EndTestMyClassifier"
+    build:
+      context: .
+    ports:
+      - "${PORT}:${PORT}"
+    profiles:
+      - end-test
+    env_file:
+      - common.env
+    depends_on:
+      - "app"
+    command: ["scripts/wait-for-it.sh", "http://localhost:${PORT}/", "--",
+              "pytest", "test/end_to_end/", "-v", "-n", "3", "--maxfail=15"]
+
+#  db:
+#    image: "MYDB"
