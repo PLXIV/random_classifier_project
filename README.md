@@ -1,4 +1,4 @@
-# ResNet Classifier Project
+# Classifier mock exercise
 
 This project launches a basic fastAPI sever which is used to classify images passed through the API. 
 
