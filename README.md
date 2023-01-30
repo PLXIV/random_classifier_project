@@ -1,5 +1,7 @@
 # Classifier mock exercise
 
+![testa](https://github.com/github/docs/actions/workflows/main.yml/badge.svg)
+
 This project launches a basic fastAPI sever which is used to classify images passed through the API. 
 
 <img title="Project structure" alt="Alt text" src="pictures/initial_architecture_solution.png">
