@@ -32,7 +32,7 @@ async def authenticate_user(username: str, password: str, allowed_users: Dict) -
     :return: pydantic model which contains basic information about the user.
     """
 
-    if not username in allowed_users.keys():
+    if username not in allowed_users.keys():
         return False
     user = allowed_users[username]
     if not verify_password(password, user.hashed_password):
@@ -49,7 +49,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme)) -> User:
     """
     try:
         payload = jwt.decode(token, os.environ['JWT_SECRET'], algorithms=[os.environ['BASE_ENCODING_ALGORITHM']])
-    except:
+    except Exception:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail='Invalid token')

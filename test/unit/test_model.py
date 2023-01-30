@@ -1,6 +1,4 @@
 import os
-import sys
-sys.path.insert(0, "/code/")
 
 import pytest
 import torch
@@ -11,6 +9,7 @@ from app_classifier.model import MyClassifier
 images_list = ['images/single_channel.jpg', 'images/chairs-2.png', 'images/chairs.jpg', 'images/abstract.jpg',
                'images/coffee-1.jpg', 'images/coffee-2.jpg', 'images/hd-wallpaper.jpg', 'images/living-room.jpg',
                'images/white-wine.jpg']
+
 
 @pytest.mark.parametrize("mode, model_path", [('script', os.environ['MODEL_PATH']),
                                               ('eager', os.environ['MODEL_PATH_EAGER']),
@@ -46,6 +45,3 @@ def test_forward_results(image, label, load_sample, classifier) -> None:
     inference = classifier(img)
     inference_label_id = inference.argmax().item()
     assert label == inference_label_id
-
-
-

@@ -31,7 +31,7 @@ class MyClassifier(torch.nn.Module):
 
         self.model_path = model_path
         self.model = self.load_model(mode)
-        self.preprocess = self.preprocess()
+        self.preprocess = self.preprocess_scheme()
         self.labels = self.read_labels()
 
     def load_model(self, mode: str) -> ResNet:
@@ -56,7 +56,7 @@ class MyClassifier(torch.nn.Module):
         return model
 
     @staticmethod
-    def preprocess() -> transforms.Compose:
+    def preprocess_scheme() -> transforms.Compose:
         """
         Performs transformations to the image required to run through the network.
 
@@ -97,4 +97,3 @@ class MyClassifier(torch.nn.Module):
         if self.cuda:
             input_batch = input_batch.to('cuda')
         return self.model(input_batch).squeeze(0).softmax(0)
-

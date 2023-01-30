@@ -10,6 +10,6 @@ def retrieve_token():
 
 @pytest.fixture
 def retrieve_token_response():
-    return {"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNsaWVudF91c2VyIiwiaGFzaGVkX3Bhc3N"
-                           "3b3JkIjoiJDJiJDEyJDEyMzQ1Njc4OTAxMjM0NTY3ODkwMXVSeFQvb2dYTkVVTGYxbnhSNC5IMTh1MTE4ZVllMld"
-                           "1In0.PqONjMIGhLn9LGTWVltA0K1GhihH5WdHvvvKbP0VIBU","token_type":"bearer"}
+    return {"access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNsaWVudF91c2VyIiwiaGFzaGVkX3Bhc3N"
+                            "3b3JkIjoiJDJiJDEyJDEyMzQ1Njc4OTAxMjM0NTY3ODkwMXVSeFQvb2dYTkVVTGYxbnhSNC5IMTh1MTE4ZVllMld"
+                            "1In0.PqONjMIGhLn9LGTWVltA0K1GhihH5WdHvvvKbP0VIBU", "token_type": "bearer"}

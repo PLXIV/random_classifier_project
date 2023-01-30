@@ -6,7 +6,6 @@ docker-compose.yaml
 Dockerfile
 logging.conf
 README.md
-requirements.txt
 Point 1. Woven Inteerview - Engineer Challenge..pdf
 k8s/
 scripts/

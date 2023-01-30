@@ -1,4 +1,3 @@
-#import requests
 import datetime
 import os
 from typing import Optional, Tuple, Dict, List
@@ -80,23 +79,3 @@ def decode_result(inference: TensorType, labels: List) -> Dict:
     score = inference[class_id].item()
     category_name = labels[class_id]
     return {'class_id': class_id, 'category_name': category_name, 'score': 100 * score}
-
-
-# def upload_image(filepath: str, url: str, content_type: str):
-#     """
-#     Function created for debugging purposes. Uploads an image and retrieves and prints the response.
-#
-#     :param filepath: file in which will be uploaded
-#     :param url: url in which the service is hosted
-#     :param content_type: type of file
-#     :return: information related to the execution
-#     """
-#     image_content_types = ['image/gif', 'image/jpeg', 'image/png', 'image/tiff', 'image/vnd.microsoft.icon',
-#                            'image/x-icon', 'image/vnd.djvu', 'image/svg+xml']
-#     assert (content_type in image_content_types)
-#     files = {'file': open(filepath, 'rb'),
-#              'Content-Type': content_type}
-#     r = requests.post(url, files=files)
-#     print(r.content)
-# filename = '../images/chairs.jpg'
-# upload_image(filename, 'http://127.0.0.1:8000/predict', 'image/jpeg')

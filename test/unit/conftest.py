@@ -1,6 +1,4 @@
 import os
-import sys
-sys.path.insert(0, "/code/")
 
 import pytest
 
@@ -13,6 +11,7 @@ def classifier():
     model_path = os.environ["MODEL_PATH"]
     return MyClassifier(model_path, mode='script')
 
+
 @pytest.fixture
 def load_sample():
 
@@ -20,6 +19,7 @@ def load_sample():
         return read_image(image)
 
     return _load_sample
+
 
 @pytest.fixture
 def retrieve_token():

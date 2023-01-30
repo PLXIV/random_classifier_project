@@ -1,5 +1,3 @@
-import sys
-sys.path.insert(0, "/code/")
 import requests
 import json
 
@@ -7,14 +5,15 @@ from fastapi import status
 import pytest
 
 
-valid_images_list = ['images/single_channel.jpg','images/chairs-2.png', 'images/coffee-1.jpg']
+valid_images_list = ['images/single_channel.jpg', 'images/chairs-2.png', 'images/coffee-1.jpg']
 invalid_images_list = [pytest.param('images/dummy_not_image.py')]
+
 
 @pytest.mark.parametrize("image", valid_images_list)
 def test_upload_image(image, retrieve_token):
     files = {'file': open(image, 'rb'),
              'Content-Type': 'image/jpeg',
-            'filename': image}
+             'filename': image}
     hed = {'Authorization': 'Bearer ' + retrieve_token,
            'accept': 'application/json'}
     r = requests.post('http://localhost:8000/predict', headers=hed, files=files)
@@ -27,7 +26,7 @@ def test_upload_image(image, retrieve_token):
 def test_upload_image_no_good(image, retrieve_token):
     files = {'file': open(image, 'rb'),
              'Content-Type': 'image/jpeg',
-            'filename': image}
+             'filename': image}
     hed = {'Authorization': 'Bearer ' + retrieve_token,
            'accept': 'application/json'}
     r = requests.post('http://localhost:8000/predict', headers=hed, files=files)

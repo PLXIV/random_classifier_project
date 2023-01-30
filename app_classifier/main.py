@@ -74,7 +74,7 @@ async def predict(background_tasks: BackgroundTasks,
         results_client, results_db = generate_samples(user, file, decoded_results)
         background_tasks.add_task(store_log, results_db)
         return results_client
-    except:
+    except Exception:
         results_client, results_db = generate_samples(user, file)
         background_tasks.add_task(store_log, results_db)
         raise HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE,

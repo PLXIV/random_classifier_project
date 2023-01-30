@@ -1,10 +1,9 @@
 from passlib.hash import bcrypt
 from app_classifier.pydantic_models import User, MyClassifierDB
 
-"""
-Since there is no time to create a database and fill it with users, I will recreate the access of users using a 
-function that returns a dictionary with users that are allowed to user the microservice.
-"""
+
+# Since there is no time to create a database and fill it with users, I will recreate the access of users using a
+# function that returns a dictionary with users that are allowed to user the microservice.
 
 
 def request_users() -> dict:

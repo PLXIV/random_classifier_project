@@ -1,14 +1,10 @@
 from datetime import datetime
 from typing import Optional
-import sys
-
-from app_classifier.pydantic_models import MyClassifierClient, MyClassifierDB
-
-sys.path.insert(0, "/code/")
 
 import pytest
 
-from app_classifier.utils import read_image, generate_log_sample, generate_samples, decode_result
+from app_classifier.pydantic_models import MyClassifierClient, MyClassifierDB
+from app_classifier.utils import read_image, generate_log_sample, generate_samples
 
 
 class MockFile:
@@ -33,7 +29,7 @@ def test_read_image_successful(image: str) -> None:
                           pytest.param({"username": "hello-world", "hashed_password": "fj982098jfipo"},
                                        MockFile("s.jpg"), None),
                           pytest.param({"user": "hello-world", "hashed_password": "fj982098jfipo"}, MockFile("s"),
-                                        None, marks=pytest.mark.xfail)
+                                       None, marks=pytest.mark.xfail)
                           ])
 def test_generate_successful_sample(user: dict, file: dict, decoded_results: Optional[dict]) -> None:
     results_client, results_db = generate_samples(user, file, decoded_results)
