@@ -1,6 +1,6 @@
 # Classifier mock exercise
 
-![testa]([https://github.com/PLXIV/random_classifier_project/actions/workflows/docker-build-test.yml/badge.svg)
+![test](https://github.com/PLXIV/random_classifier_project/actions/workflows/docker-build-test.yml/badge.svg)
 
 This project launches a basic fastAPI sever which is used to classify images passed through the API. 
 
