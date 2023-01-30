@@ -1,0 +1,16 @@
+
+name: Docker build and test
+
+on:
+  push
+
+jobs:
+  build:
+   runs-on: ubuntu-latest
+
+   steps:
+     - uses: actions/checkout@v2
+     - name: Build Docker image
+       run: docker build -t clf_test:0.0.1 .
+     - name: Run tests inside the container
+       run: docker run --rm -it clf_test:0.0.1 pytest
