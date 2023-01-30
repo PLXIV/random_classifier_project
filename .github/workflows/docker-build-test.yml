@@ -13,4 +13,4 @@ jobs:
      - name: Build Docker image
        run: docker build -t clf_test:0.0.1 .
      - name: Run tests inside the container
-       run: docker run --rm -it clf_test:0.0.1 pytest
+       run: docker run --rm clf_test:0.0.1 pytest
