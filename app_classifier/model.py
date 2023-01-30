@@ -7,9 +7,6 @@ from torchvision.models.resnet import ResNet
 from torchvision import transforms
 from PIL.Image import Image
 
-from app_classifier.imagenet_categories import _IMAGENET_CATEGORIES  # to be discontinued
-
-
 class MyClassifier(torch.nn.Module):
 
     def __init__(self, model_path: str, mode='script'):
@@ -30,11 +27,11 @@ class MyClassifier(torch.nn.Module):
             self.cuda = True
 
         self.model_path = model_path
-        self.model = self.load_model(mode)
-        self.preprocess = self.preprocess_scheme()
-        self.labels = self.read_labels()
+        self._model = self._load_model(mode)
+        self._preprocess = self._preprocess_scheme()
+        self.labels = self._read_labels()
 
-    def load_model(self, mode: str) -> ResNet:
+    def _load_model(self, mode: str) -> ResNet:
         """
         Loads models from the file contained in model_path. It can load models in eager or script mode. It would be
         reasonable to talk with the AI team and talk if it makes sense to can always convert the models into
@@ -47,16 +44,16 @@ class MyClassifier(torch.nn.Module):
         assert(mode in ['eager', 'script'])
         if mode == 'eager':
             model = resnet101()
-            model.load_state_dict(torch.load(self.model_path))
+            model.load_state_dict(torch.load(self._model_path))
             model.eval()
             if self.cuda:
                 model.to('cuda')
         else:
-            model = torch.jit.load(self.model_path)
+            model = torch.jit.load(self._model_path)
         return model
 
     @staticmethod
-    def preprocess_scheme() -> transforms.Compose:
+    def _preprocess_scheme() -> transforms.Compose:
         """
         Performs transformations to the image required to run through the network.
 
@@ -69,7 +66,7 @@ class MyClassifier(torch.nn.Module):
             transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
         ])
 
-    def read_labels(self) -> List:
+    def _read_labels(self) -> List:
         """
         Reads label names. It would be desirable that the models would be self-contained, thus saving the categorical
         names inside the models itself may be reasonable since different datasets may lead to have different sets of
@@ -78,8 +75,8 @@ class MyClassifier(torch.nn.Module):
 
         :return: List of label names relative to the classifier IDs
         """
-        if hasattr(self.model, 'imagenet_categories'):
-            return self.model.imagenet_categories
+        if hasattr(self._model, 'imagenet_categories'):
+            return self._model.imagenet_categories
         # This will be discontinued. In the future it may directly return self.models.imagenet_categories or from other
         # sources.
         return _IMAGENET_CATEGORIES
@@ -92,8 +89,8 @@ class MyClassifier(torch.nn.Module):
         :param img: 3 dimensional Image.
         :return: tensor with the result of the inference.
         """
-        input_tensor = self.preprocess(img)
+        input_tensor = self._preprocess(img)
         input_batch = input_tensor.unsqueeze(0)
         if self.cuda:
             input_batch = input_batch.to('cuda')
-        return self.model(input_batch).squeeze(0).softmax(0)
+        return self._model(input_batch).squeeze(0).softmax(0)
