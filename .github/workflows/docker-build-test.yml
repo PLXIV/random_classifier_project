@@ -13,6 +13,6 @@ jobs:
      - name: Build Docker image
        run: docker build -t clf_test:0.0.1 .
      - name: Check python style
-       run: flask8 app_classifier test
+       run: flake8 app_classifier test
      #- name: Run tests inside the container
      #  run: docker run clf_test:0.0.1 pytest
