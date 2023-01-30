@@ -7,6 +7,7 @@ from torchvision.models.resnet import ResNet
 from torchvision import transforms
 from PIL.Image import Image
 
+
 class MyClassifier(torch.nn.Module):
 
     def __init__(self, model_path: str, mode='script'):
