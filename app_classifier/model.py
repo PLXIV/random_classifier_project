@@ -68,18 +68,10 @@ class MyClassifier(torch.nn.Module):
 
     def _read_labels(self) -> List:
         """
-        Reads label names. It would be desirable that the models would be self-contained, thus saving the categorical
-        names inside the models itself may be reasonable since different datasets may lead to have different sets of
-        labels. If the models does not contain the labels itself, it will try to read it from imagenet_categories.py.
-        However, as the imagenet_categories.py indicates, this method will be discontinued at some point.
-
+        Reads label names.
         :return: List of label names relative to the classifier IDs
         """
-        if hasattr(self._model, 'imagenet_categories'):
-            return self._model.imagenet_categories
-        # This will be discontinued. In the future it may directly return self.models.imagenet_categories or from other
-        # sources.
-        return _IMAGENET_CATEGORIES
+        return self._model.imagenet_categories
 
     def forward(self, img: Image) -> torch.TensorType:
         """
