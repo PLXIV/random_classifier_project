@@ -81,10 +81,10 @@ Once the token is retrieved, we can perform inferences using the service from /p
 To execute one prediction run:
 
 `
-curl -X 'POST' \
+curl -X 'POST'
   'http://localhost:8000/predict' \
   -H 'accept: application/json' \
-  -H 'Authorization: Bearer ${retrieve_token}' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNsaWVudF91c2VyIiwiaGFzaGVkX3Bhc3N3b3JkIjoiJDJiJDEyJDEyMzQ1Njc4OTAxMjM0NTY3ODkwMXVSeFQvb2dYTkVVTGYxbnhSNC5IMTh1MTE4ZVllMld1In0.PqONjMIGhLn9LGTWVltA0K1GhihH5WdHvvvKbP0VIBU' \
   -H 'Content-Type: multipart/form-data' \
   -F 'file=@chairs.jpg;type=image/jpeg'
 `

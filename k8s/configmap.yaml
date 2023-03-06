@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: myclassifier-configmap
+  namespace: myclassifier-namespace
+data:
+#  JWT_SECRET: "My_secret"
+#  BASE_ENCODING_ALGORITHM: "HS256"
+#  USERNAME_1: "client_user"
+#  PASSWORD_1: "tryClassifier"
+  MODEL_PATH: "models/resnet101_scripted.pt"
+  MODEL_PATH_EAGER: "models/resnet101.pth"
+  VERSION: "0.0.1"
+  S3_PATH: "http://s3-ap-northeast-1.amazonaws.com/myclassifier/"

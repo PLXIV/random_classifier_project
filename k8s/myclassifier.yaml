@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myclassifier-deployment
+  namespace: myclassifier-namespace
+spec:
+  selector:
+    matchLabels:
+      app: myclassifier
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: myclassifier
+    spec:
+      containers:
+      - name: myclassifier-server
+        image: myclassifier:0.0.4
+        imagePullPolicy: Never
+        command: [ "uvicorn", "app_classifier.main:app", "--host", "0.0.0.0", "--reload"]
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+              - ALL
+        ports:
+        - containerPort: 8000
+        env:
+          - name: "JWT_SECRET"
+            valueFrom:
+              secretKeyRef:
+                name: myclassifier-secret
+                key: JWT_SECRET
+          - name: "BASE_ENCODING_ALGORITHM"
+            valueFrom:
+              secretKeyRef:
+                name: myclassifier-secret
+                key: BASE_ENCODING_ALGORITHM
+          - name: "USERNAME_1"
+            valueFrom:
+              secretKeyRef:
+                name: myclassifier-secret
+                key: USERNAME_1
+          - name: "PASSWORD_1"
+            valueFrom:
+              secretKeyRef:
+                name: myclassifier-secret
+                key: PASSWORD_1
+          - name: "MODEL_PATH"
+            valueFrom:
+              configMapKeyRef:
+                name: myclassifier-configmap
+                key: MODEL_PATH
+          - name: "MODEL_PATH_EAGER"
+            valueFrom:
+              configMapKeyRef:
+                name: myclassifier-configmap
+                key: MODEL_PATH_EAGER
+          - name: "S3_PATH"
+            valueFrom:
+              configMapKeyRef:
+                name: myclassifier-configmap
+                key: S3_PATH
+          - name: "VERSION"
+            valueFrom:
+              configMapKeyRef:
+                name: myclassifier-configmap
+                key: VERSION
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: myclassifier-service
+  namespace: myclassifier-namespace
+spec:
+  type: LoadBalancer
+  selector:
+    app: myclassifier
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+      nodePort: 30001

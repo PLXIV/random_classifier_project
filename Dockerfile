@@ -34,17 +34,17 @@ RUN pip install -e .
 EXPOSE 8000
 USER user
 
-ENV JWT_SECRET=My_secret\
-BASE_ENCODING_ALGORITHM=HS256 \
-USERNAME_1=client_user \
-PASSWORD_1=tryClassifier \
-MODEL_PATH=models/resnet101_scripted.pt \
-MODEL_PATH_EAGER=models/resnet101.pth \
-VERSION=0.0.1 \
-S3_PATH=http://s3-ap-northeast-1.amazonaws.com/myclassifier/
+#ENV JWT_SECRET=My_secret \
+#BASE_ENCODING_ALGORITHM=HS256 \
+#USERNAME_1=client_user \
+#PASSWORD_1=tryClassifier \
+#MODEL_PATH=models/resnet101_scripted.pt \
+#MODEL_PATH_EAGER=models/resnet101.pth \
+#VERSION=0.0.1 \
+#S3_PATH=http://s3-ap-northeast-1.amazonaws.com/myclassifier/
 
 
 #CMD flake8 app_classifier test
 #CMD mypy app_classifier
-CMD pytest
-#CMD ["uvicorn", "app_classifier.main:app","--reload", "--host 0.0.0.0"]
+#CMD pytest
+CMD [ "uvicorn", "app_classifier.main:app", "--host", "0.0.0.0", "--reload"]

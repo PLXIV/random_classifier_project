@@ -27,7 +27,7 @@ class MyClassifier(torch.nn.Module):
         if torch.cuda.is_available():
             self.cuda = True
 
-        self.model_path = model_path
+        self._model_path = model_path
         self._model = self._load_model(mode)
         self._preprocess = self._preprocess_scheme()
         self.labels = self._read_labels()
